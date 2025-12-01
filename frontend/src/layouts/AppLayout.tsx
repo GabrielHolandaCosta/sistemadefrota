@@ -21,8 +21,8 @@ export function AppLayout({ children }: Props) {
 
   return (
     <div className="min-h-screen flex bg-slate-950 text-slate-50">
-      <aside className="hidden md:flex w-64 flex-col border-r border-slate-800 bg-slate-950/80">
-        <div className="px-4 py-4 border-b border-slate-800">
+      <aside className="hidden md:flex w-64 flex-col border-r border-slate-800 bg-slate-950/80 fixed left-0 top-0 h-screen">
+        <div className="px-4 py-4 border-b border-slate-800 flex-shrink-0">
           <Link to="/dashboard" className="flex items-center gap-2">
             <span className="h-8 w-8 rounded-lg bg-primary-500 shadow-lg shadow-primary-500/50" />
             <div>
@@ -33,39 +33,61 @@ export function AppLayout({ children }: Props) {
             </div>
           </Link>
         </div>
-        <nav className="flex-1 px-3 py-4 space-y-1">
-          {role !== "OPERATOR" && (
-            <NavLink to="/dashboard" className={navLinkClass}>
+        <nav className="flex-1 overflow-y-auto px-3 py-4" style={{ maxHeight: 'calc(100vh - 80px)' }}>
+          <div className="flex flex-col space-y-1 w-full">
+            <NavLink
+              to="/dashboard"
+              className={({ isActive }) =>
+                `${navLinkClass} ${isActive ? "bg-primary-500/20 text-primary-300" : ""}`
+              }
+            >
               Dashboard
             </NavLink>
-          )}
-          {role !== "OPERATOR" && (
-            <NavLink to="/veiculos" className={navLinkClass}>
+            <NavLink
+              to="/veiculos"
+              className={({ isActive }) =>
+                `${navLinkClass} ${isActive ? "bg-primary-500/20 text-primary-300" : ""}`
+              }
+            >
               Veículos
             </NavLink>
-          )}
-          {role !== "OPERATOR" && (
-            <NavLink to="/motoristas" className={navLinkClass}>
+            <NavLink
+              to="/motoristas"
+              className={({ isActive }) =>
+                `${navLinkClass} ${isActive ? "bg-primary-500/20 text-primary-300" : ""}`
+              }
+            >
               Motoristas
             </NavLink>
-          )}
-          {role !== "OPERATOR" && (
-            <NavLink to="/manutencoes" className={navLinkClass}>
+            <NavLink
+              to="/manutencoes"
+              className={({ isActive }) =>
+                `${navLinkClass} ${isActive ? "bg-primary-500/20 text-primary-300" : ""}`
+              }
+            >
               Manutenções
             </NavLink>
-          )}
-          {role !== "OPERATOR" && (
-            <NavLink to="/abastecimentos" className={navLinkClass}>
+            <NavLink
+              to="/abastecimentos"
+              className={({ isActive }) =>
+                `${navLinkClass} ${isActive ? "bg-primary-500/20 text-primary-300" : ""}`
+              }
+            >
               Abastecimentos
             </NavLink>
-          )}
-          <NavLink to="/viagens" className={navLinkClass}>
-            {role === "OPERATOR" ? "Minhas viagens" : "Viagens"}
-          </NavLink>
+            <NavLink
+              to="/viagens"
+              className={({ isActive }) =>
+                `${navLinkClass} ${isActive ? "bg-primary-500/20 text-primary-300" : ""}`
+            }
+            >
+              Viagens
+            </NavLink>
+          </div>
         </nav>
       </aside>
 
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col md:ml-64">
         <header className="h-14 flex items-center justify-between border-b border-slate-800 bg-slate-950/80 px-4 md:px-6">
           <div className="flex items-center gap-2 md:hidden">
             <span className="h-7 w-7 rounded-lg bg-primary-500" />

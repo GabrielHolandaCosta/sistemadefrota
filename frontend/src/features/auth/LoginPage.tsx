@@ -39,11 +39,7 @@ export function LoginPage() {
           role,
         }),
       );
-      if (role === "OPERATOR") {
-        navigate("/viagens");
-      } else {
-        navigate("/dashboard");
-      }
+      navigate("/dashboard");
     } catch (err) {
       console.error(err);
       setError("Usuário ou senha inválidos.");

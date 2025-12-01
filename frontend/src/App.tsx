@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { useAppSelector } from "./hooks";
 import { LandingPage } from "./features/landing/LandingPage";
 import { LoginPage } from "./features/auth/LoginPage";
@@ -13,9 +13,13 @@ import { AppLayout } from "./layouts/AppLayout";
 
 function PrivateRoute({ children }: { children: JSX.Element }) {
   const token = useAppSelector((s) => s.auth.accessToken);
+  const location = useLocation();
+  
+  // Se não tem token, redirecionar para login, mas salvar a rota atual
   if (!token) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
+  
   return children;
 }
 
